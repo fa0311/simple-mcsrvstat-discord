@@ -28,10 +28,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
         return;
       }
 
-      const online = status.players.online;
-      const max = status.players.max;
+      const { online, max, list } = status.players;
 
-      await interaction.editReply(`Players: ${online}/${max}`);
+      let content = `Players: ${online}/${max}`;
+      if (list && list.length > 0) {
+        content += `\n\`\`\`\n${list.join("\n")}\n\`\`\``;
+      }
+
+      await interaction.editReply(content);
     } catch (error) {
       console.error(error);
       await interaction.editReply("Failed to fetch Minecraft server status.");
