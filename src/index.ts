@@ -1,8 +1,4 @@
-import {
-  Client,
-  Events,
-  GatewayIntentBits
-} from "discord.js";
+import { Client, Events, GatewayIntentBits } from "discord.js";
 import { slashCommands } from "./commands.js";
 import { env } from "./env.js";
 import { fetchMinecraftStatus } from "./mcsrvstat.js";
@@ -32,8 +28,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
         return;
       }
 
-      const online = status.players?.online ?? 0;
-      const max = status.players?.max ?? "?";
+      const online = status.players.online;
+      const max = status.players.max;
 
       await interaction.editReply(`Players: ${online}/${max}`);
     } catch (error) {

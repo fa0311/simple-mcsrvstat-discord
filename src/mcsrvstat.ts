@@ -2,12 +2,10 @@ import { z } from "zod";
 
 const statusSchema = z.object({
   online: z.boolean(),
-  players: z
-    .object({
-      online: z.number().optional(),
-      max: z.number().optional(),
-    })
-    .optional(),
+  players: z.object({
+    online: z.number(),
+    max: z.number(),
+  }),
 });
 
 export type MinecraftStatus = z.infer<typeof statusSchema>;
