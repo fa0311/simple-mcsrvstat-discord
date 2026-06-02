@@ -2,6 +2,7 @@ import { Client, Events, GatewayIntentBits } from "discord.js";
 import { slashCommands } from "./commands.js";
 import { env } from "./env.js";
 import { fetchMinecraftStatus } from "./mcsrvstat.js";
+import { md } from "./md.js";
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
@@ -28,10 +29,13 @@ client.on(Events.InteractionCreate, async (interaction) => {
         return;
       }
 
-      const online = status.players.online;
-      const max = status.players.max;
+      const { online, max, list } = status.players;
 
-      await interaction.editReply(`Players: ${online}/${max}`);
+      const content = md().add(`Players: ${online}/${max}`);
+      if (list && list.length > 0) {
+        content.addCodeBlock(list.join("\n"));
+      }
+      await interaction.editReply(content.toString());
     } catch (error) {
       console.error(error);
       await interaction.editReply("Failed to fetch Minecraft server status.");

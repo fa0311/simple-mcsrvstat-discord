@@ -5,6 +5,7 @@ const statusSchema = z.object({
   players: z.object({
     online: z.number(),
     max: z.number(),
+    list: z.array(z.string()).optional(),
   }),
 });
 
