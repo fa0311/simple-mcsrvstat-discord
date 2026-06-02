@@ -32,7 +32,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
       const { online, max, list } = status.players;
 
       const content = md().add(`Players: ${online}/${max}`);
-      if (list.length > 0) {
+      if (list && list.length > 0) {
         content.addCodeBlock(list.join("\n"));
       }
       await interaction.editReply(content.toString());
