@@ -1,11 +1,16 @@
 import { z } from "zod";
 
+const userSchema = z.object({
+  name: z.string(),
+  uuid: z.string(),
+});
+
 const statusSchema = z.object({
   online: z.boolean(),
   players: z.object({
     online: z.number(),
     max: z.number(),
-    list: z.array(z.string()).optional(),
+    list: z.array(userSchema).optional(),
   }),
 });
 
